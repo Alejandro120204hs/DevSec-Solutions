@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat /tmp/fonts/all.css)",
+      "Read(//tmp/fonts/**)",
+      "Bash(node shot.js)"
+    ]
+  }
+}
