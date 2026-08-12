@@ -16,6 +16,17 @@
         }
     };
 
+    /* ---- Hover rápido en tarjetas, solo después de que AOS termine de revelarlas ---- */
+    document.querySelectorAll('.process__card[data-aos]').forEach((card) => {
+        if (prefersReducedMotion) {
+            card.classList.add('hover-ready');
+        } else {
+            card.addEventListener('transitionend', () => {
+                card.classList.add('hover-ready');
+            }, { once: true });
+        }
+    });
+
     /* ---- Preloader ---- */
     const preloader = document.getElementById('preloader');
     const content = document.getElementById('contenido-web');
@@ -123,6 +134,28 @@
         };
         updateNavbarState();
         window.addEventListener('scroll', updateNavbarState, { passive: true });
+    }
+
+    /* ---- Scroll-spy: resalta en el nav la sección visible ---- */
+    if (navMenu && 'IntersectionObserver' in window) {
+        const navLinks = navMenu.querySelectorAll('a[href^="#"]');
+        const sections = Array.from(navLinks)
+            .map((link) => document.getElementById(link.getAttribute('href').slice(1)))
+            .filter(Boolean);
+
+        const setActiveLink = (id) => {
+            navLinks.forEach((link) => {
+                link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+            });
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) setActiveLink(entry.target.id);
+            });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+
+        sections.forEach((section) => sectionObserver.observe(section));
     }
 
     /* ---- Count-up numbers (rating, stats, dashboard figures) ---- */
