@@ -952,7 +952,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
         padding-block: 48px 40px;
         text-align: left;
     }
-    .hero__visual { min-height: 480px; margin-top: 16px; order: -1; }
+    .hero__visual { min-height: 480px; margin-top: 16px; }
     .connectors { display: none; }
     .float-callout { left: 0; }
     .float-card--stat { right: 2%; }
