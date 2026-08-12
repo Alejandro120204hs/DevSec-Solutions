@@ -3,6 +3,93 @@
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* ---- Reveal-on-scroll (AOS) ---- */
+    const initAOS = () => {
+        if (window.AOS) {
+            AOS.init({
+                duration: 700,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 80,
+                disable: () => prefersReducedMotion,
+            });
+        }
+    };
+
+    /* ---- Preloader ---- */
+    const preloader = document.getElementById('preloader');
+    const content = document.getElementById('contenido-web');
+
+    if (preloader && content) {
+        let revealed = false;
+
+        const revealContent = () => {
+            if (revealed) return;
+            revealed = true;
+            content.style.transition = 'opacity 0.4s ease';
+            content.style.opacity = '1';
+            if (preloader.isConnected) preloader.remove();
+            // AOS recién se inicializa cuando el contenido ya es visible, si no,
+            // anima los elementos del hero mientras están tapados por el preloader.
+            initAOS();
+        };
+
+        const brandText = preloader.querySelector('.loader-brackets__text');
+
+        const startPreloaderAnimation = () => {
+            const brandGap = brandText.parentElement;
+            const chars = brandText.textContent.split('');
+            brandText.textContent = '';
+            chars.forEach((char) => {
+                const letter = document.createElement('span');
+                letter.className = 'loader-brackets__letter';
+                letter.textContent = char;
+                brandText.appendChild(letter);
+            });
+            // Se mide después de que la fuente esté lista (ver más abajo); si se mide antes,
+            // el navegador usa la fuente de respaldo (más angosta) y el ancho queda corto.
+            const fullWidth = brandText.scrollWidth;
+            const letters = brandText.querySelectorAll('.loader-brackets__letter');
+
+            anime.timeline()
+                .add({
+                    // Fase 1: las llaves se abren (espacio vacío, sin texto todavía).
+                    targets: brandGap,
+                    width: [0, fullWidth],
+                    duration: 1100,
+                    easing: 'easeOutQuad',
+                })
+                .add({
+                    // Fase 2: cada letra aparece una por una, nunca a medio cortar.
+                    targets: letters,
+                    opacity: [0, 1],
+                    translateY: [6, 0],
+                    duration: 300,
+                    delay: anime.stagger(90),
+                })
+                .add({
+                    targets: preloader,
+                    opacity: [1, 0],
+                    duration: 70,
+                    delay: 70,
+                    complete: revealContent,
+                });
+        };
+
+        if (prefersReducedMotion || typeof anime === 'undefined' || !brandText) {
+            revealContent();
+        } else if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(startPreloaderAnimation);
+        } else {
+            startPreloaderAnimation();
+        }
+
+        // Red de seguridad: nunca dejar al usuario atrapado detrás del loader.
+        setTimeout(revealContent, 4000);
+    } else {
+        initAOS();
+    }
+
     /* ---- Mobile nav toggle ---- */
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('nav-menu');
@@ -36,17 +123,6 @@
         };
         updateNavbarState();
         window.addEventListener('scroll', updateNavbarState, { passive: true });
-    }
-
-    /* ---- Reveal-on-scroll (AOS) ---- */
-    if (window.AOS) {
-        AOS.init({
-            duration: 700,
-            easing: 'ease-out-cubic',
-            once: true,
-            offset: 80,
-            disable: () => prefersReducedMotion,
-        });
     }
 
     /* ---- Count-up numbers (rating, stats, dashboard figures) ---- */

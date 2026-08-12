@@ -3,6 +3,37 @@
    Tokens, type system, layout and components for the landing hero.
    ========================================================================== */
 
+#contenido-web { opacity: 0; }
+
+#preloader {
+    position: fixed;
+    inset: 0;
+    background: #0a1628;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loader-brackets {
+    display: flex;
+    align-items: center;
+    font-family: 'Clash Display', 'Segoe UI', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #f5f7f2;
+}
+.loader-brackets__b { color: #c5ff4a; }
+.loader-brackets__gap {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    width: 0;
+}
+.loader-brackets__text { display: inline-block; padding: 0 6px; white-space: pre; }
+.loader-brackets__letter { display: inline-block; opacity: 0; }
+
 @font-face {
     font-family: 'Clash Display';
     src: url('../assets/fonts/ClashDisplay-Semibold.woff2') format('woff2');
@@ -120,6 +151,8 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
+
+
 
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -254,6 +287,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     padding-block: 64px 48px;
 }
 
+
 /* ---- Hero content ------------------------------------------------------ */
 .badge {
     display: inline-flex;
@@ -275,6 +309,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     line-height: 1.06;
     letter-spacing: -0.015em;
     color: var(--c-bone);
+    font-size: 60px;
 }
 .accent-text { color: var(--c-accent); }
 
@@ -296,42 +331,24 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     flex-wrap: wrap;
 }
 
-.rating { display: flex; align-items: center; gap: 12px; }
-.rating__stars { display: flex; gap: 3px; color: var(--c-accent); }
-.rating__text { display: flex; flex-direction: column; line-height: 1.25; font-family: var(--ff-mono); }
-.rating__text strong { font-size: 0.95rem; color: var(--c-bone); font-variant-numeric: tabular-nums; }
-.rating__text span { font-size: 0.75rem; color: var(--c-fog); }
-
-.proof-divider { width: 1px; height: 34px; background: var(--c-line); }
-
-.avatars { display: flex; align-items: center; }
-.avatar {
-    width: 38px;
-    height: 38px;
+.proof-item { display: flex; align-items: center; gap: 12px; }
+.proof-item__icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
+    background: var(--c-accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--ff-mono);
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--c-navy-deep);
-    background: linear-gradient(var(--a, 135deg), var(--b1, #c5ff4a), var(--b2, #5fae3d));
-    border: 2px solid var(--c-navy);
-    margin-left: -10px;
 }
-.avatar:first-child { margin-left: 0; }
-.avatar--more {
-    background: var(--c-slate-700);
-    color: var(--c-bone);
-    font-size: 0.68rem;
-}
-.avatars p {
-    margin: 0 0 0 14px;
-    font-size: 0.85rem;
-    color: var(--c-fog);
-    max-width: 15ch;
-}
+.proof-item__icon--blue { background: linear-gradient(135deg, #8fd9ff, #2f6a8c); }
+.proof-item__icon--orange { background: linear-gradient(135deg, #ffd66b, #c98b2c); }
+.proof-item__text { display: flex; flex-direction: column; line-height: 1.25; }
+.proof-item__text strong { font-size: 0.85rem; color: var(--c-bone); font-weight: 600; }
+.proof-item__text span { font-size: 0.75rem; color: var(--c-fog); }
+
+.proof-divider { width: 1px; height: 34px; background: var(--c-line); }
 
 /* ---- Hero visual / phone mockup ---------------------------------------- */
 .hero__visual {
@@ -846,7 +863,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 
     .hero__title { font-size: 2.5rem; }
     .hero__proof { gap: 16px; }
-    .avatars p { display: none; }
+    .proof-item__text span { display: none; }
 
     .process { padding-block: 72px 80px; }
     .process__cards { grid-template-columns: 1fr; }
