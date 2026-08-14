@@ -86,6 +86,7 @@
 
 /* ---- Tokens -------------------------------------------------------- */
 :root {
+    color-scheme: light;
     /* Palette — deep teal-navy ground fading to paper, lime signal */
     --c-navy: #0a1c2a;
     --c-navy-deep: #050e15;
