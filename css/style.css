@@ -277,15 +277,18 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---- Hero ------------------------------------------------------------ */
+.hero-services-bg {
+    background: linear-gradient(180deg, var(--c-navy) 0%, var(--c-slate-800) 18%, var(--c-slate-700) 34%, var(--c-slate-500) 50%, var(--c-slate-300) 62%, var(--c-paper) 78%, var(--c-paper) 100%);
+}
+
 .hero {
     position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
     padding-top: var(--nav-h);
-    background:
-        radial-gradient(1100px 700px at 78% 10%, rgba(39, 67, 76, 0.6), transparent 60%),
-        linear-gradient(180deg, var(--c-navy) 0%, var(--c-slate-800) 34%, var(--c-slate-700) 66%, var(--c-slate-500) 100%);
+    padding-bottom: 80px;
+    background: radial-gradient(1100px 700px at 78% 10%, rgba(39, 67, 76, 0.6), transparent 60%);
     overflow: clip;
 }
 
@@ -357,7 +360,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 .proof-item__icon--orange { background: linear-gradient(135deg, #ffd66b, #c98b2c); }
 .proof-item__text { display: flex; flex-direction: column; line-height: 1.25; }
 .proof-item__text strong { font-size: 0.85rem; color: var(--c-bone); font-weight: 600; }
-.proof-item__text span { font-size: 0.75rem; color: var(--c-fog); }
+.proof-item__text span { font-size: 0.75rem; color: #e8fbff; }
 
 .proof-divider { width: 1px; height: 34px; background: var(--c-line); }
 
@@ -813,7 +816,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 .process {
     position: relative;
     padding-block: 100px 120px;
-    background: linear-gradient(180deg, var(--c-slate-500) 0%, var(--c-slate-300) 28%, var(--c-paper) 62%, var(--c-paper) 100%);
+    margin-top: -130px;
 }
 
 .process__head {
@@ -949,7 +952,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 @media (max-width: 960px) {
     .hero__inner {
         grid-template-columns: 1fr;
-        padding-block: 48px 40px;
+        padding-block: 48px 100px;
         text-align: left;
     }
     .hero__visual { min-height: 480px; margin-top: 16px; }
