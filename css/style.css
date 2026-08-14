@@ -1000,6 +1000,48 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     color: var(--c-ink-soft);
 }
 
+.commitments-strip {
+    margin-top: 64px;
+    padding-block: 44px;
+    background: var(--c-navy);
+    overflow: hidden;
+}
+.commitments-strip__title {
+    display: block;
+    text-align: center;
+    font-family: var(--ff-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    margin-bottom: 32px;
+}
+.commitments-strip__track {
+    display: flex;
+    width: max-content;
+    gap: 56px;
+    animation: commitments-marquee 26s linear infinite;
+}
+.commitments-strip:hover .commitments-strip__track {
+    animation-play-state: paused;
+}
+.commitments-strip__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    color: var(--c-bone);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.commitments-strip__item svg { color: var(--c-accent); flex-shrink: 0; }
+
+@keyframes commitments-marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .float-card, .float-callout { animation: none; }
     .phone-frame--back { animation: none; transform: rotate(13deg); }
