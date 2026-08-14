@@ -942,6 +942,64 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     color: var(--c-ink-soft);
 }
 
+/* ---- Services section -------------------------------------------------- */
+.services {
+    position: relative;
+    padding-block: 20px 120px;
+    background: var(--c-paper);
+}
+.services__head {
+    max-width: 640px;
+    margin-bottom: 56px;
+}
+.services__title {
+    font-size: clamp(1.9rem, 1.2rem + 2.4vw, 2.75rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--c-ink);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+.service-card {
+    background: #fff;
+    border: 1px solid var(--c-paper-line);
+    border-radius: var(--radius-l);
+    padding: 36px 32px;
+    box-shadow: 0 20px 44px -30px rgba(13, 34, 44, 0.35);
+}
+.service-card.hover-ready {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+.service-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: var(--shadow-md);
+}
+.service-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-m);
+    background: var(--c-accent);
+    margin-bottom: 22px;
+}
+.service-card h3 {
+    font-size: 1.3rem;
+    color: var(--c-ink);
+    margin-bottom: 10px;
+}
+.service-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--c-ink-soft);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .float-card, .float-callout { animation: none; }
     .phone-frame--back { animation: none; transform: rotate(13deg); }
@@ -966,6 +1024,8 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 
     .about__row { grid-template-columns: 1fr; gap: 64px; }
     .about__content { max-width: none; }
+
+    .services-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 760px) {

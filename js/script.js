@@ -17,7 +17,7 @@
     };
 
     /* ---- Hover rápido en tarjetas, solo después de que AOS termine de revelarlas ---- */
-    document.querySelectorAll('.process__card[data-aos]').forEach((card) => {
+    document.querySelectorAll('.process__card[data-aos], .service-card[data-aos]').forEach((card) => {
         if (prefersReducedMotion) {
             card.classList.add('hover-ready');
         } else {
