@@ -1043,6 +1043,84 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     to { transform: translateX(-50%); }
 }
 
+/* ---- FAQ section -------------------------------------------------------- */
+.faq {
+    position: relative;
+    padding-block: 100px 120px;
+    background: var(--c-paper);
+    margin-top: -80px;
+}
+.faq__head {
+    max-width: 640px;
+    margin: 0 auto 44px;
+    text-align: center;
+}
+.faq__title {
+    font-size: clamp(1.9rem, 1.2rem + 2.4vw, 2.75rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--c-ink);
+}
+
+.faq-list {
+    max-width: 780px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.faq-item {
+    background: #fff;
+    border: 1px solid var(--c-paper-line);
+    border-radius: var(--radius-m);
+    box-shadow: 0 20px 44px -30px rgba(13, 34, 44, 0.35);
+    overflow: hidden;
+}
+.faq-item__question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    text-align: left;
+    font-family: var(--ff-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--c-ink);
+    cursor: pointer;
+}
+.faq-item__icon {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    color: var(--c-accent-ink);
+    background: var(--c-accent);
+    border-radius: 50%;
+    padding: 8px;
+    transition: transform 0.25s ease;
+}
+.faq-item__question[aria-expanded="true"] .faq-item__icon {
+    transform: rotate(180deg);
+}
+
+.faq-item__answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+}
+.faq-item__question[aria-expanded="true"] + .faq-item__answer {
+    grid-template-rows: 1fr;
+}
+.faq-item__answer-inner { overflow: hidden; }
+.faq-item__answer p {
+    margin: 0;
+    padding: 0 24px 20px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--c-ink-soft);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .float-card, .float-callout { animation: none; }
     .phone-frame--back { animation: none; transform: rotate(13deg); }

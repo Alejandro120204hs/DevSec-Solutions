@@ -27,6 +27,16 @@
         }
     });
 
+    /* ---- Acordeón de preguntas frecuentes ---- */
+    const faqQuestions = document.querySelectorAll('.faq-item__question');
+    faqQuestions.forEach((question) => {
+        question.addEventListener('click', () => {
+            const isOpen = question.getAttribute('aria-expanded') === 'true';
+            faqQuestions.forEach((other) => other.setAttribute('aria-expanded', 'false'));
+            question.setAttribute('aria-expanded', String(!isOpen));
+        });
+    });
+
     /* ---- Preloader ---- */
     const preloader = document.getElementById('preloader');
     const content = document.getElementById('contenido-web');
