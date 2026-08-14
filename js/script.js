@@ -37,6 +37,21 @@
         });
     });
 
+    /* ---- Formulario de contacto (abre el correo del usuario con los datos) ---- */
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const nombre = contactForm.nombre.value.trim();
+            const email = contactForm.email.value.trim();
+            const mensaje = contactForm.mensaje.value.trim();
+
+            const subject = encodeURIComponent(`Nuevo proyecto — ${nombre}`);
+            const body = encodeURIComponent(`Nombre: ${nombre}\nEmail: ${email}\n\n${mensaje}`);
+            window.location.href = `mailto:alejandro1202hs@gmail.com?subject=${subject}&body=${body}`;
+        });
+    }
+
     /* ---- Preloader ---- */
     const preloader = document.getElementById('preloader');
     const content = document.getElementById('contenido-web');

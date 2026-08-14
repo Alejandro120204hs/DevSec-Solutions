@@ -831,7 +831,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--c-slate-700);
+    color: #ffffff !important;
     margin-bottom: 12px;
 }
 .process__title {
@@ -1043,11 +1043,31 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     to { transform: translateX(-50%); }
 }
 
+/* ---- FAQ + Contact shared background (para que no haya costura entre ellas) --- */
+.faq-contact-bg {
+    background: linear-gradient(
+        180deg in oklab,
+        var(--c-paper) 0%,
+        var(--c-paper) 45%,
+        color-mix(in oklab, var(--c-paper), var(--c-slate-300) 25%) 50%,
+        color-mix(in oklab, var(--c-paper), var(--c-slate-300) 60%) 54%,
+        var(--c-slate-300) 58%,
+        color-mix(in oklab, var(--c-slate-300), var(--c-slate-500) 50%) 61%,
+        var(--c-slate-500) 64%,
+        color-mix(in oklab, var(--c-slate-500), var(--c-slate-700) 50%) 67%,
+        var(--c-slate-700) 70%,
+        color-mix(in oklab, var(--c-slate-700), var(--c-slate-800) 50%) 73%,
+        var(--c-slate-800) 76%,
+        color-mix(in oklab, var(--c-slate-800), var(--c-navy) 50%) 84%,
+        var(--c-navy) 92%,
+        var(--c-navy) 100%
+    );
+}
+
 /* ---- FAQ section -------------------------------------------------------- */
 .faq {
     position: relative;
     padding-block: 100px 120px;
-    background: var(--c-paper);
     margin-top: -80px;
 }
 .faq__head {
@@ -1121,6 +1141,146 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     color: var(--c-ink-soft);
 }
 
+/* ---- Contact section ----------------------------------------------------- */
+.eyebrow--light { color: var(--c-fog); }
+
+.contact {
+    position: relative;
+    padding-block: 420px 100px;
+}
+.contact__row {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+    align-items: start;
+    margin-top: -400px;
+}
+.contact__title {
+    margin-top: 4px;
+    font-size: clamp(1.9rem, 1.2rem + 2.4vw, 2.75rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: var(--c-bone);
+}
+.contact__lead {
+    margin-top: 18px;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color:#ffffff;
+    max-width: 46ch;
+}
+
+.contact-form {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 460px;
+}
+.contact-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.contact-form__field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--c-fog);
+}
+.contact-form__field input,
+.contact-form__field textarea {
+    font-family: var(--ff-body);
+    font-size: 0.95rem;
+    color: var(--c-bone);
+    background: var(--c-glass);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-s);
+    padding: 12px 14px;
+    resize: vertical;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.contact-form__field input:focus,
+.contact-form__field textarea:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    background: var(--c-glass-strong);
+}
+
+.contact__aside {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.contact-card {
+    background: var(--c-glass);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-l);
+    padding: 32px;
+}
+.contact-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-m);
+    background: var(--c-accent);
+    margin-bottom: 18px;
+}
+.contact-card h3 {
+    font-size: 1.15rem;
+    color: var(--c-bone);
+    margin-bottom: 6px;
+}
+.contact-card p {
+    margin: 0 0 20px;
+    font-size: 0.92rem;
+    color: var(--c-fog);
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.contact-info__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--c-glass);
+    border: 1px solid var(--c-line);
+    border-radius: var(--radius-m);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.contact-info__item:hover {
+    background: var(--c-glass-strong);
+    transform: translateX(4px);
+}
+.contact-info__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--c-accent);
+    color: var(--c-accent-ink);
+}
+.contact-info__item strong {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--c-fog);
+    font-weight: 600;
+}
+.contact-info__value {
+    display: block;
+    font-size: 0.98rem;
+    color: var(--c-bone);
+    font-weight: 600;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .float-card, .float-callout { animation: none; }
     .phone-frame--back { animation: none; transform: rotate(13deg); }
@@ -1147,6 +1307,18 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     .about__content { max-width: none; }
 
     .services-grid { grid-template-columns: 1fr; }
+
+    .contact__row { grid-template-columns: 1fr; gap: 48px; }
+    .contact-form { max-width: none; }
+    .contact { padding-block: 480px 100px; }
+    .contact__content {
+        background: rgba(5, 14, 21, 0.55);
+        padding: 28px 24px;
+        border-radius: var(--radius-l);
+        text-align: center;
+    }
+    .contact__lead { margin-inline: auto; }
+    .contact-form__field { text-align: left; }
 }
 
 @media (max-width: 760px) {
