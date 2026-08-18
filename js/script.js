@@ -16,6 +16,13 @@
         }
     };
 
+    // Las imágenes que cargan después de iniciar AOS cambian la altura de la página
+    // y desactualizan los puntos de disparo calculados; sin este refresh, secciones
+    // al final (como el aside de contacto) pueden quedar atascadas sin revelarse nunca.
+    window.addEventListener('load', () => {
+        if (window.AOS) AOS.refresh();
+    });
+
     /* ---- Hover rápido en tarjetas, solo después de que AOS termine de revelarlas ---- */
     document.querySelectorAll('.process__card[data-aos], .service-card[data-aos]').forEach((card) => {
         if (prefersReducedMotion) {
@@ -37,18 +44,66 @@
         });
     });
 
-    /* ---- Formulario de contacto (abre el correo del usuario con los datos) ---- */
+    /* ---- Formulario de contacto (envío real por PHPMailer) ---- */
     const contactForm = document.getElementById('contact-form');
+    const contactStatus = document.getElementById('contact-form-status');
+    const phoneInput = document.getElementById('contact-phone');
+
+    let iti = null;
+    if (phoneInput && window.intlTelInput) {
+        iti = window.intlTelInput(phoneInput, {
+            initialCountry: 'co',
+            preferredCountries: ['co', 'mx', 'ar', 'cl', 'pe', 'ec', 've', 'es', 'us'],
+            separateDialCode: true,
+        });
+    }
+
     if (contactForm) {
-        contactForm.addEventListener('submit', (event) => {
+        contactForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
             const nombre = contactForm.nombre.value.trim();
             const email = contactForm.email.value.trim();
+            const countryData = iti ? iti.getSelectedCountryData() : null;
+            const pais = countryData ? countryData.name : '';
+            const telefono = iti ? (iti.getNumber() || `+${countryData.dialCode} ${phoneInput.value.trim()}`.trim()) : phoneInput.value.trim();
             const mensaje = contactForm.mensaje.value.trim();
 
-            const subject = encodeURIComponent(`Nuevo proyecto — ${nombre}`);
-            const body = encodeURIComponent(`Nombre: ${nombre}\nEmail: ${email}\n\n${mensaje}`);
-            window.location.href = `mailto:alejandro1202hs@gmail.com?subject=${subject}&body=${body}`;
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.textContent = 'Enviando...';
+            if (contactStatus) {
+                contactStatus.textContent = '';
+                contactStatus.className = 'contact-form__status';
+            }
+
+            try {
+                const res = await fetch('send-mail.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, email, pais, telefono, mensaje }),
+                });
+                const data = await res.json();
+
+                if (contactStatus) {
+                    contactStatus.textContent = data.success
+                        ? '✓ Mensaje enviado. Te responderemos pronto.'
+                        : `✕ ${data.message}`;
+                    contactStatus.classList.add(data.success ? 'is-success' : 'is-error');
+                }
+                if (data.success) {
+                    contactForm.reset();
+                    if (iti) iti.setNumber('');
+                }
+            } catch (err) {
+                if (contactStatus) {
+                    contactStatus.textContent = '✕ No se pudo enviar. Revisa tu conexión e intenta de nuevo.';
+                    contactStatus.classList.add('is-error');
+                }
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
     }
 

@@ -151,6 +151,7 @@ body {
     font-size: 16px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
 
@@ -272,6 +273,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     background: var(--c-bone);
     border-radius: 2px;
     transition: transform 0.25s ease, opacity 0.25s ease;
+
 }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
@@ -1188,6 +1190,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     color: var(--c-fog);
 }
 .contact-form__field input,
+.contact-form__field select,
 .contact-form__field textarea {
     font-family: var(--ff-body);
     font-size: 0.95rem;
@@ -1200,11 +1203,43 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     transition: border-color 0.2s ease, background 0.2s ease;
 }
 .contact-form__field input:focus,
+.contact-form__field select:focus,
 .contact-form__field textarea:focus {
     outline: none;
     border-color: var(--c-accent);
     background: var(--c-glass-strong);
 }
+
+.contact-form__field .iti { width: 100%; }
+.contact-form__field .iti input {
+    width: 100%;
+    padding-left: 90px;
+}
+.contact-form__field .iti__selected-country { border-radius: var(--radius-s) 0 0 var(--radius-s); }
+
+.iti__dropdown-content {
+    background: #ffffff;
+    border: 1px solid var(--c-paper-line);
+    border-radius: var(--radius-s);
+}
+.iti__dropdown-content .iti__country-name,
+.iti__dropdown-content .iti__dial-code,
+.iti__dropdown-content .iti__search-input {
+    color: var(--c-ink);
+}
+.iti__dropdown-content li.iti__country:hover,
+.iti__dropdown-content li.iti__highlight {
+    background-color: var(--c-paper);
+}
+
+.contact-form__status {
+    margin: -6px 0 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    min-height: 1.2em;
+}
+.contact-form__status.is-success { color: var(--c-accent); }
+.contact-form__status.is-error { color: #ff8a7a; }
 
 .contact__aside {
     display: flex;
@@ -1215,7 +1250,8 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
     background: var(--c-glass);
     border: 1px solid var(--c-line);
     border-radius: var(--radius-l);
-    padding: 32px;
+    padding: 28px 18px;
+    
 }
 .contact-card__icon {
     display: inline-flex;
@@ -1235,7 +1271,7 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 .contact-card p {
     margin: 0 0 20px;
     font-size: 0.92rem;
-    color: var(--c-fog);
+    color: #ffffff;
 }
 
 .contact-info {
@@ -1308,15 +1344,19 @@ h1, h2, h3 { font-family: var(--ff-display); font-weight: 600; margin: 0; text-w
 
     .services-grid { grid-template-columns: 1fr; }
 
-    .contact__row { grid-template-columns: 1fr; gap: 48px; }
+    .contact__row { grid-template-columns: 1fr; gap: 48px; 
+    margin-left:-20px}
     .contact-form { max-width: none; }
     .contact { padding-block: 480px 100px; }
     .contact__content {
+        width: 100%;
+        margin-inline: auto;
         background: rgba(5, 14, 21, 0.55);
         padding: 28px 24px;
         border-radius: var(--radius-l);
         text-align: center;
     }
+    .contact__aside { width: 100%; margin-inline: auto; }
     .contact__lead { margin-inline: auto; }
     .contact-form__field { text-align: left; }
 }
